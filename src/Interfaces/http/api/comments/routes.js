@@ -4,6 +4,7 @@ function routes(container) {
   const handler = new CommentsHandler({
     addCommentUseCase: container.getInstance('AddCommentUseCase'),
     deleteCommentUseCase: container.getInstance('DeleteCommentUseCase'),
+    toggleCommentLikeUseCase: container.getInstance('ToggleCommentLikeUseCase'),
   });
 
   return [
@@ -17,6 +18,12 @@ function routes(container) {
       method: 'DELETE',
       path: '/threads/{threadId}/comments/{commentId}',
       handler: handler.deleteCommentHandler,
+      options: { auth: 'forum_jwt' },
+    },
+    {
+      method: 'PUT',
+      path: '/threads/{threadId}/comments/{commentId}/likes',
+      handler: handler.putCommentLikeHandler,
       options: { auth: 'forum_jwt' },
     },
   ];

@@ -231,6 +231,17 @@ container.register([
       ],
     },
   },
+  {
+    key: (require('../Applications/use_case/ToggleCommentLikeUseCase')).name,
+    Class: require('../Applications/use_case/ToggleCommentLikeUseCase'),
+    parameter: {
+      injectType: 'destructuring',
+      dependencies: [
+        { name: 'threadsRepository', internal: ThreadsRepository.name },
+        { name: 'commentRepository', internal: CommentRepository.name },
+      ],
+    },
+  },
 ]);
 
 module.exports = container;

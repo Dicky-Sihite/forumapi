@@ -20,6 +20,8 @@ class GetThreadDetailUseCase {
       comments.map(async (comment) => {
         const replies = await this._replyRepository.getRepliesByCommentId(comment.id);
 
+        const likeCount = await this._commentRepository.getCommentLikeCount(comment.id);
+
         // Format replies: jika is_delete true, tampilkan pesan dihapus
         const formattedReplies = replies.map((reply) => ({
           id: reply.id,
@@ -33,6 +35,7 @@ class GetThreadDetailUseCase {
           username: comment.username,
           date: comment.date,
           content: comment.is_delete ? '**komentar telah dihapus**' : comment.content,
+          likeCount,
           replies: formattedReplies,
         };
       })
